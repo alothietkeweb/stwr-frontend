@@ -1,0 +1,44 @@
+{
+    "name": "stwr-frontend",
+    "version": "1.0.0",
+    "scripts": {
+        "obfuscatejs": "node src/obfuscate.js src/js/background.js dist/js/background.js",
+        "minjs": "npx uglifyjs src/assets/js/_base.js src/assets/js/pages/_home.js -c -m --mangle-props -o dist/assets/js/_base.js",
+        "gcc": "npx google-closure-compiler  -O ADVANCED src/assets/js/*.js --js_output_file dist/out.js",
+        "gulp": "npx gulp",
+        "gulp-watch": "",
+        "gulp-build": "npx gulp build && node obfhtml.js"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.16",
+        "browser-sync": "^3.0.2",
+        "clean-css": "^5.3.1",
+        "del": "4.1.1",
+        "google-closure-compiler": "^20240317.0.0",
+        "gulp": "^4.0.2",
+        "gulp-cached": "1.1.1",
+        "gulp-cli": "^3.0.0",
+        "gulp-cssnano": "2.1.3",
+        "gulp-file-include": "2.0.1",
+        "gulp-if": "^3.0.0",
+        "gulp-npm-dist": "^1.0.3",
+        "gulp-postcss": "^9.0.1",
+        "gulp-rename": "^1.4.0",
+        "gulp-replace": "1.0.0",
+        "gulp-sass": "^5.1.0",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "3.0.2",
+        "gulp-useref-plus": "0.0.8",
+        "javascript-obfuscator": "^4.1.0",
+        "postcss": "^8.4.33",
+        "postcss-obfuscator": "^1.6.1",
+        "sass": "1.32.12",
+        "tailwindcss": "^3.4.1",
+        "uglify-js": "^3.17.4"
+    },
+    "dependencies": {
+        "animate.css": "^4.1.1",
+        "swiper": "11.1.0",
+        "wow.js": "^1.2.2"
+    }
+}
