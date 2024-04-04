@@ -43,3 +43,136 @@
 Nếu đang phát triển thì chạy lệnh `npx gulp`
 
 Nếu xuất file thành phẩm thì chạy `npx gulp build && node obfhtml.js`
+
+## Viết Mã
+Sử dụng nhiều các thuộc tính của gulp-file-include [![Gitter][gitter-img]][[gitter-url](https://github.com/haoxins/gulp-file-include/tree/main)]
+
+### Như nhúng file
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+  @@include('./view.html')
+  @@include('./var.html')
+  </body>
+</html>
+```
+### Vòng lặp
+```html
+<ul>
+@@for (var i = 0; i < arr.length; i++) {
+  <li>`+arr[i]+`</li>
+}
+</ul>
+```
+### Truyền biến
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+  @@include('./view.html')
+  @@include('./var.html', {
+    "name": "haoxin",
+    "age": 12345,
+    "socials": {
+      "fb": "facebook.com/include",
+      "tw": "twitter.com/include"
+    }
+  })
+  </body>
+</html>
+```
+```html
+<label>@@name</label>
+<label>@@age</label>
+<strong>@@socials.fb</strong>
+<strong>@@socials.tw</strong>
+```
+### Điều kiện
+```
+@@include('some.html', { "nav": true })
+
+@@if (name === 'test' && nav === true) {
+  @@include('test.html')
+}
+```
+### `loop` statement
+
+* index.html
+
+```html
+<body>
+  @@loop('loop-article.html', [
+    { "title": "My post title", "text": "<p>lorem ipsum...</p>" },
+    { "title": "Another post", "text": "<p>lorem ipsum...</p>" },
+    { "title": "One more post", "text": "<p>lorem ipsum...</p>" }
+  ])
+</body>
+```
+
+* loop-article.html
+
+```html
+<article>
+  <h1>@@title</h1>
+  @@text
+</article>
+```
+
+### `loop` statement + data.json
+
+data.json
+
+```js
+[
+  { "title": "My post title", "text": "<p>lorem ipsum...</p>" },
+  { "title": "Another post", "text": "<p>lorem ipsum...</p>" },
+  { "title": "One more post", "text": "<p>lorem ipsum...</p>" }
+]
+```
+
+* loop-article.html
+```html
+<body>
+  @@loop("loop-article.html", "data.json")
+</body>
+```
+
+### `webRoot` built-in context variable
+
+The `webRoot` field of the context contains the relative path from the source document to
+the source root (unless the value is already set in the context options).
+
+### example
+
+support/contact/index.html
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type=stylesheet src=@@webRoot/css/style.css>
+  </head>
+  <body>
+    <h1>Support Contact Info</h1>
+    <footer><a href=@@webRoot>Home</a></footer>
+  </body>
+  </body>
+</html>
+```
+
+and the result is:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type=stylesheet src=../../css/style.css>
+  </head>
+  <body>
+    <h1>Support Contact Info</h1>
+    <footer><a href=../..>Home</a></footer>
+  </body>
+  </body>
+</html>
+```
